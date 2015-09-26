@@ -4,10 +4,9 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
-  get 'users/create'
-  get 'users/index'
-  get 'users/update'
-  get 'users/destroy'
+  resources :users, only: [:create,:index,:update,:destroy] do
+    resources :errands, only: [:create,:index,:update,:destroy] 
+  end
 
 
   # Example of regular route:

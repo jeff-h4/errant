@@ -1,8 +1,11 @@
 class ErrandsController < ApplicationController
   before_action :find_errand, only: [:update,:destroy]
+  before_action :authenticate_user!
+  before_action :authorize, only: [:edit,:update,:destroy]
 
   def create
     set_errand
+    @errand.user = current_user
     respond_to do |format|
       if @errand.save
         format.json do
