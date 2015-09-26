@@ -3,7 +3,7 @@ class ErrandsController < ApplicationController
 
   def create
     set_errand
-    respond_to |format| do
+    respond_to do |format|
       if @errand.save
         format.json do
           render json: {result: "success"}
@@ -19,7 +19,7 @@ class ErrandsController < ApplicationController
     @errands = Errand.all
   end
   def update
-   respond_to |format| do
+   respond_to do |format|
       if @errand.update
         format.json do
           render json: {result: "success"}
@@ -33,7 +33,7 @@ class ErrandsController < ApplicationController
   end
   def destroy
     @errand.destroy
-    respond_to |format| do
+    respond_to do |format|
       format.json do
         render json: {result: "success"}
       end
