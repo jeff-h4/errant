@@ -5,7 +5,7 @@ class ErrandsController < ApplicationController
 
   def create
     set_errand
-    @errand.user = current_user
+    @errand.owner = current_user
     respond_to do |format|
       if @errand.save
         format.json do

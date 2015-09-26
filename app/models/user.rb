@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true
   validates :email, presence: true, uniqueness: true,
             format: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
-  has_many :errands, dependent: :destroy
+  has_many :owned_errands, dependent: :destroy, class_name: :errand
+  has_many :accepted_errands, dependent: :nullify, class_name: :errand
 
   def full_name
     "#{first_name} #{last_name}"
