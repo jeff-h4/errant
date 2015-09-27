@@ -23,7 +23,7 @@ class ErrandsController < ApplicationController
   end
   def update
    respond_to do |format|
-      if @errand.update
+      if @errand.update errand_params
         format.json do
           render json: {result: "success"}
         end

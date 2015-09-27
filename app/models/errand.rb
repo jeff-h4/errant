@@ -5,11 +5,18 @@ class Errand < ActiveRecord::Base
   validates :item_name, presence: true
   validates :price, presence: true
   # store is optional
-  #def user_name
-  #  if user 
-  #    user.full_name
-  #  else
-  #    "Anonymous"
-  #  end
-  #end
+  def owner_full_name
+    if owner
+      owner.full_name
+    else
+      "Anonymous"
+    end
+  end
+  def runner_full_name
+    if owner
+      owner.full_name
+    else
+      "Anonymous"
+    end
+  end
 end
