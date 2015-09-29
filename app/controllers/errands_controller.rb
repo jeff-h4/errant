@@ -1,7 +1,7 @@
 class ErrandsController < ApplicationController
   before_action :find_errand, only: [:update,:destroy]
-  before_action :authenticate_user!
-  before_action :authorize, only: [:edit,:update,:destroy]
+  #before_action :authenticate_user!
+  #before_action :authorize, only: [:edit,:update,:destroy]
 
   def create
     set_errand
@@ -20,6 +20,11 @@ class ErrandsController < ApplicationController
   end
   def index
     @errands = Errand.all
+    respond_to do |format|
+      format.json do
+        render json: {result: "success"}
+      end
+    end
   end
   def update
    respond_to do |format|
