@@ -6,16 +6,10 @@ class ErrandsController < ApplicationController
   def create
     set_errand
     @errand.owner = current_user
-    respond_to do |format|
-      if @errand.save
-        format.json do
-          render json: {result: "success"}
-        end
-      else
-        format.json do
-          render json: {result: "error"}
-        end
-      end
+    if @errand.save
+      render json: {result: "success"}
+    else
+      render json: {result: "error"}
     end
   end
   def index
@@ -24,25 +18,15 @@ class ErrandsController < ApplicationController
     render json: @errands
   end
   def update
-   respond_to do |format|
-      if @errand.update errand_params
-        format.json do
-          render json: {result: "success"}
-        end
-      else
-        format.json do
-          render json: {result: "error"}
-        end
-      end
+    if @errand.update errand_params
+      render json: {result: "success"}
+    else
+      render json: {result: "error"}
     end
   end
   def destroy
     @errand.destroy
-    respond_to do |format|
-      format.json do
-        render json: {result: "success"}
-      end
-    end
+    render json: {result: "success"}
   end
   private
   def set_errand

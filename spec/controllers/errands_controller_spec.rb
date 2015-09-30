@@ -4,9 +4,20 @@ RSpec.describe ErrandsController, type: :controller do
   #render_views
   #let(:json) {JSON.parse(response.body) }
 
-  describe "GET #create" do
+  describe "POST #create" do
     context "with valid_parameters" do
+      def valid_attributes(new_attributes={})
+        attributes_for(:errand).merge(new_attributes)
+      end
       it "created an errand in the database" do
+        valid_params = valid_attributes
+        #request_headers = {
+        #  "Accept" => "application/json",
+        #  "Content-Type" => "application/json"
+        #}
+        post :create, {errand: valid_params}
+        parsed_json = JSON.parse(response.body)
+        expect(parsed_json["result"]).to eq("success")
       end
       it "assigns an owner" do
       end
