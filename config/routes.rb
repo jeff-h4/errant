@@ -8,9 +8,8 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
-  resources :users, only: [:create,:index,:update,:destroy] do
-    resources :errands, only: [:create,:index,:update,:destroy] 
-  end
+  resources :users, only: [:create,:index,:update,:destroy]
+  resources :errands, only: [:create,:index,:update,:destroy] 
 
 
   # Example of regular route:
