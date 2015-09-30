@@ -20,11 +20,8 @@ class ErrandsController < ApplicationController
   end
   def index
     @errands = Errand.all
-    respond_to do |format|
-      format.json do
-        render json: {result: "success"}
-      end
-    end
+    #render json: {result: "success"}
+    render json: @errands
   end
   def update
    respond_to do |format|
