@@ -9,23 +9,48 @@ RSpec.describe ErrandsController, type: :controller do
       def valid_attributes(new_attributes={})
         attributes_for(:errand).merge(new_attributes)
       end
+      def user_valid_attributes(new_attributes={})
+        attributes_for(:user).merge(new_attributes)
+      end
       it "created an errand in the database" do
         valid_params = valid_attributes
+        # This is not necessary since the Controller will only respond with JSOn.
+        # If the controller could respond with either HTML or JSON, then we need to specify
+        # the header
         #request_headers = {
         #  "Accept" => "application/json",
         #  "Content-Type" => "application/json"
         #}
+        # POST function takes params in the form of a HASH
+        # The Rails controller is smart enough to take the HASH and process it
         post :create, {errand: valid_params}
         parsed_json = JSON.parse(response.body)
         expect(parsed_json["result"]).to eq("success")
       end
+      let(:user) {create(:user)}
+      # Stubs out this method. somehow.
+      before {allow(controller).to receive(:current_user) { user } }
       it "assigns an owner" do
+        valid_params = valid_attributes
+        post :create, {errand: valid_params}
+        expect(Errand.last.owner).to eq(user)
       end
       it "responds with success" do
+        valid_params = valid_attributes
+        post :create, {errand: valid_params}
+        parsed_json = JSON.parse(response.body)
+        expect(parsed_json["result"]).to eq("success")
       end
     end
     context "with invalid_parameters" do
+      def invalid_attributes(new_attributes={})
+        attributes_for(:errand).merge(new_attributes)
+      end
       it "responds with error" do
+        invalid_params = invalid_attributes(title: nil)
+        post :create, {errand: invalid_params}
+        parsed_json = JSON.parse(response.body)
+        expect(parsed_json["result"]).to eq("error")
       end
     end
   end
@@ -65,8 +90,10 @@ RSpec.describe ErrandsController, type: :controller do
     context "invalid parameters passed in" do
     end
   end
-  describe "GET #destroy" do
+  describe "DELETE #destroy" do
     it "destroys the errand" do
+      create(:errand)
+      delete :destroy, 
     end
   end
 end
