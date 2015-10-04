@@ -13,9 +13,12 @@ class ErrandsController < ApplicationController
     end
   end
   def index
-    @errands = Errand.all
+    #@errands = Errand.all
+    @my_posted_errands = Errand.find_by_owner_id current_user.id
+    @my_accepted_errands = Errand.find_by_runner_id current_user.id
     #render json: {result: "success"}
-    render json: @errands
+    render json: {my_posted_errands: @my_posted_errands,
+                  my_accepted_errands: @my_accepted_errands}
   end
   def update
     if @errand.update errand_params

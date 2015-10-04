@@ -53,5 +53,6 @@ group :development, :test do
   gem "awesome_print"
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'rack-cors', :require => 'rack/cors'
 end
 
