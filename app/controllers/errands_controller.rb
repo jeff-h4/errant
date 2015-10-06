@@ -5,10 +5,14 @@ class ErrandsController < ApplicationController
 
   def create
     set_errand
+    logger.debug("errand_params:")
+    logger.debug(errand_params)
     @errand.owner = current_user
     if @errand.save
+      logger.debug("Errand Created");
       render json: {result: "success"}
     else
+      logger.debug("Adding Errand FAILED");
       render json: {result: "error"}
     end
   end
