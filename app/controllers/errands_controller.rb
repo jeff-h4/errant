@@ -14,11 +14,14 @@ class ErrandsController < ApplicationController
   end
   def index
     #@errands = Errand.all
-    @my_posted_errands = Errand.find_by_owner_id current_user.id
-    @my_accepted_errands = Errand.find_by_runner_id current_user.id
+    @my_posted_errands    = Errand.where("owner_id = :search_id AND aasm_state LIKE :search_state",search_id: current_user.id, search_state: "posted")
+    @my_accepted_errands  = Errand.where("runner_id = :search_id AND aasm_state LIKE :search_state",search_id: current_user.id, search_state: "accepted")
+    @my_completed_errands = Errand.where("owner_id = :search_id AND aasm_state LIKE :search_state",search_id: current_user.id, search_state: "completed")
     #render json: {result: "success"}
-    render json: {my_posted_errands: @my_posted_errands,
-                  my_accepted_errands: @my_accepted_errands}
+    render json: {result: "success",
+                  my_posted_errands: @my_posted_errands,
+                  my_accepted_errands: @my_accepted_errands,
+                  my_completed_errands: @my_completed_errands}
   end
   def update
     if @errand.update errand_params

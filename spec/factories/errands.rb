@@ -6,6 +6,7 @@ FactoryGirl.define do
     sequence(:store)        { Faker::Team.name }
     sequence(:created_at)   { Time.now - 60.days + rand(1..20).days }
     sequence(:updated_at)   { Time.now - rand(1..20).days }
+    sequence(:aasm_state)   { ["posted","accepted","completed","cancelled"].sample }
   end
 
 

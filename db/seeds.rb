@@ -22,17 +22,27 @@ userC = FactoryGirl::create(:user,{first_name: "c",
   errand = FactoryGirl::build(:errand)
   errand.owner = userA
   errand.runner = userB
+  errand.aasm_state = "posted"
+  errand.save
+end
+10.times do
+  errand = FactoryGirl::build(:errand)
+  errand.owner = userA
+  errand.runner = userB
+  errand.aasm_state = "accepted"
   errand.save
 end
 10.times do
   errand = FactoryGirl::build(:errand)
   errand.owner = userA
   errand.runner = userC
+  errand.aasm_state = "posted"
   errand.save
 end
 10.times do
   errand = FactoryGirl::build(:errand)
   errand.owner = userB
   errand.runner = userA
+  errand.aasm_state = "posted"
   errand.save
 end
