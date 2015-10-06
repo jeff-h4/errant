@@ -11,24 +11,24 @@ class Errand < ActiveRecord::Base
   include AASM
   aasm do
     state :posted, initial: :true
-    state :pending
+    state :accepted
     state :completed
     state :cancelled
     event :accept do
-      transitions from: :posted, to: :pending
+      transitions from: :posted, to: :accepted
     end
     event :complete do
-      transitions from: :pending, to: :completed
+      transitions from: :accepted, to: :completed
     end
     event :cancel do
-      transitions from: [:published, :pending], to: :cancelled
+      transitions from: [:published, :accepted], to: :cancelled
     end
   end 
   # ---------------------------------------------------
   # Functions
   # ---------------------------------------------------
   scope :posted, lambda{where(aasm_state: :posted)}
-  scope :pending, lambda{where(aasm_state: :pending)}
+  scope :accepted, lambda{where(aasm_state: :accepted)}
   scope :completed, lambda{where(aasm_state: :completed)}
   scope :cancelled, lambda{where(aasm_state: :cancelled)}
   # store is optional
