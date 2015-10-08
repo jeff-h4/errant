@@ -6,43 +6,46 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-userA = FactoryGirl::create(:user,{first_name: "a",
-                             last_name: "a",
-                             email: "a@a.com",
-                             password: "a"})
-userB = FactoryGirl::create(:user,{first_name: "b",
-                             last_name: "b",
-                             email: "b@b.com",
-                             password: "b"})
-userC = FactoryGirl::create(:user,{first_name: "c",
-                             last_name: "c",
-                             email: "c@c.com",
-                             password: "c"})
+userA = FactoryGirl::create(:user,{first_name: "Jeff",
+                             last_name: "H",
+                             email: "jeff@codecore.ca",
+                             password: "J"})
+userB = FactoryGirl::create(:user,{first_name: "Tam",
+                             last_name: "K",
+                             email: "tam@codecore.ca",
+                             password: "T"})
+userC = FactoryGirl::create(:user,{first_name: "Dan",
+                             last_name: "P",
+                             email: "Dan@codecore.ca",
+                             password: "D"})
 10.times do
   errand = FactoryGirl::build(:errand)
   errand.owner = userA
-  errand.runner = userB
-  errand.aasm_state = "posted"
-  errand.save
-end
-10.times do
-  errand = FactoryGirl::build(:errand)
-  errand.owner = userA
-  errand.runner = userB
-  errand.aasm_state = "accepted"
-  errand.save
-end
-10.times do
-  errand = FactoryGirl::build(:errand)
-  errand.owner = userA
-  errand.runner = userC
-  errand.aasm_state = "posted"
+  errand.aasm_state = ["posted","accepted","completed"].sample
+  if errand.aasm_state == "posted"
+    errand.runner = nil
+  else
+    errand.runner = [userB,userC].sample
+  end
   errand.save
 end
 10.times do
   errand = FactoryGirl::build(:errand)
   errand.owner = userB
-  errand.runner = userA
-  errand.aasm_state = "posted"
+  if errand.aasm_state == "posted"
+    errand.runner = nil
+  else
+    errand.runner = [userA,userC].sample
+  end
+  errand.save
+end
+10.times do
+  errand = FactoryGirl::build(:errand)
+  errand.owner = userC
+  if errand.aasm_state == "posted"
+    errand.runner = nil
+  else
+    errand.runner = [userA,userB].sample
+  end
   errand.save
 end
