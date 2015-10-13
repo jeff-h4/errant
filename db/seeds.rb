@@ -14,10 +14,10 @@ userB = FactoryGirl::create(:user,{first_name: "Tam",
                              last_name: "K",
                              email: "tam@codecore.ca",
                              password: "T"})
-userC = FactoryGirl::create(:user,{first_name: "Dan",
-                             last_name: "P",
-                             email: "Dan@codecore.ca",
-                             password: "D"})
+userC = FactoryGirl::create(:user,{first_name: "Mehdi",
+                             last_name: "M",
+                             email: "mehdi@codecore.ca",
+                             password: "M"})
 10.times do
   errand = FactoryGirl::build(:errand)
   errand.owner = userA

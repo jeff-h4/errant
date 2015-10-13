@@ -48,6 +48,6 @@ class ErrandsController < ApplicationController
     @errand = Errand.find params[:id]
   end
   def errand_params
-    params.require(:errand).permit(:title,:item_name,:price,:store,:aasm_state)
+    params.require(:errand).permit(:title,:item_name,:price,:store,:aasm_state,:runner_id)
   end
 end
