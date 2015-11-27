@@ -16,4 +16,8 @@ class User < ActiveRecord::Base
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def self.search_emails(query)
+    where(["email LIKE :search_email", search_email: query])
+  end
 end

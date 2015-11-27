@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   root 'sessions#new'
   resources :users, only: [:create,:index,:update,:destroy]
   resources :errands, only: [:create,:index,:update,:destroy] 
-  resources :friendships, only: [:create,:destroy] 
+  resources :friendships, only: [:create,:destroy,:index] 
   resources :sessions, only: [:new,:create,:destroy]
   #resource :auth, only: [:create,:destroy]
   post 'auth/' => 'auth#create'

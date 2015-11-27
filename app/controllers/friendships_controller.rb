@@ -10,6 +10,13 @@ class FriendshipsController < ApplicationController
       redirect_to root_url
     end
   end
+  def index
+    Rails.logger.debug("Index action called")
+    @friends = current_user.friends
+    if params[:search]
+      @friend = User.search_emails(params[:search]).first
+    end
+  end
 
   def destroy
     #@friendship = Friendship.find(params[:id])

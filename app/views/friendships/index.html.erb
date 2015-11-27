@@ -1,0 +1,26 @@
+<h1>Friendships#index</h1>
+
+<h2>Find Friends</h2>
+<p>We need to add a friend</p>
+<p>Search for a friend?</p>
+<%= form_tag(friendships_path, :method => "get", class: "navbar-form", id: "search-friend-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Friend's Email" %>
+  <!-- button class="btn" type="submit"><i class="icon-search"></i></button-->
+  <button class="btn" type="submit">Search for Friend</button>
+<% end %>
+
+<% unless @friend.nil? %>
+  <%= @friend.first_name %>
+  <%= @friend.last_name %>
+  <%= @friend.email %>
+<% end %>
+
+<h2>Friend List</h2>
+<% unless @friends.length == 0 %>
+  <%= @friends.each do |f| %>
+    <%= f.email %>
+  <% end %>
+<% else %>
+  <p>You have no friends</p>
+<% end %>
+
