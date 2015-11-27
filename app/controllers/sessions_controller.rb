@@ -6,7 +6,6 @@ class SessionsController < ApplicationController
   def create 
     # Note: there is no session object, unlike most other controllers
     @user = User.find_by_email params[:email]
-    byebug
     if @user && @user.authenticate(params[:password])
       Rails.logger.debug("Session: User Sign In Successful")
       session[:user_id] = @user.id

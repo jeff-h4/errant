@@ -31,6 +31,7 @@ class Errand < ActiveRecord::Base
   scope :accepted, lambda{where(aasm_state: :accepted)}
   scope :completed, lambda{where(aasm_state: :completed)}
   scope :cancelled, lambda{where(aasm_state: :cancelled)}
+  scope :expired_first, lambda{order("updated_at ASC")}
   # store is optional
   def owner_full_name
     if owner

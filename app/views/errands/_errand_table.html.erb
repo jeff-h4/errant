@@ -1,0 +1,25 @@
+
+<table class="table">
+  <thead>
+    <th>Due Date*</th>
+    <th>Owner</th>
+    <th>Store</th>
+    <th>Item Name</th>
+    <th>Price</th>
+    <th>Actions<th>
+  </thead>
+  <tbody>
+    <% errands.expired_first.each do |e| %>
+      <tr>
+        <td><%= format_formal_date(e.updated_at) %></td>   
+        <td><%= e.owner.first_name %></td>   
+        <td><%= e.store %></td>   
+        <td><%= e.item_name %></td>   
+        <td>$<%= e.price %></td>   
+        <td><%= render 'actions', errand: e %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

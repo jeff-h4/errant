@@ -1,2 +1,9 @@
 
 <h1>Errand Listing</h1>
+<%= link_to "Friend List", friendships_path %>
+<h2>My Errands</h2>
+<%= render 'errand_table', errands: @my_errands %>
+
+<h2>Open Errands</h2>
+<%= render 'errand_table', errands: @open_errands %>
+

@@ -17,8 +17,10 @@ class ErrandsController < ApplicationController
     end
   end
   def index
-    #@errands = Errand.all
+    @my_owned_errands     = Errand.where("owner_id = :search_id",search_id: current_user.id)
+    @my_running_errands   = Errand.where("runner_id = :search_id",search_id: current_user.id)
     @my_errands           = Errand.where("owner_id = :search_id OR runner_id = :search_id",search_id: current_user.id)
+    @open_errands         = Errand.where("aasm_state LIKE :search_state", search_state: "posted")
     @my_posted_errands    = Errand.where("owner_id = :search_id AND aasm_state LIKE :search_state",search_id: current_user.id, search_state: "posted")
     @other_posted_errands = Errand.where("owner_id != :search_id AND aasm_state LIKE :search_state",search_id: current_user.id, search_state: "posted")
     @my_accepted_errands  = Errand.where("runner_id = :search_id AND aasm_state LIKE :search_state",search_id: current_user.id, search_state: "accepted")
@@ -28,6 +30,9 @@ class ErrandsController < ApplicationController
     #              my_posted_errands: @my_posted_errands,
     #              my_accepted_errands: @my_accepted_errands,
     #              my_completed_errands: @my_completed_errands}
+    #respond_to do |format|
+    #  format.html { @errands = @my_errands }
+    #end
   end
   def update
     if @errand.update errand_params
